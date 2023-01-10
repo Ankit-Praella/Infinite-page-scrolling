@@ -1,0 +1,66 @@
+{% assign current_variant = product.selected_or_first_available_variant %}
+<div class="col-12 col-lg-4 col-md-4 col-sm-6 mb-5 d-flex align-items-stretch justify-content-around collection-data-render">
+  <div class="card-image" data-next-url="{{ next_page  }}">
+    {% if current_variant and current_variant.image %}
+      <img src="{{ current_variant.image | img_url: 'master'}}">
+      {% elsif product.featured_image.size > 0 %}
+      <img src="{{  product.featured_image | img_url: 'master'}}">
+    {% endif %}  
+      <div class="card-body">
+        <h6 class="card-title m-0 font-family-base">
+          <a class="product-link lh-base" href="{{ product.url | within: collection }}">{{ product.title }}</a>
+        </h6>
+        {%- if current_variant.compare_at_price > current_variant.price -%}<span compare_at_price>{{ current_variant.compare_at_price | money }}</span>{% endif %}
+        <span actual_price class="h5 actual-price money">{{ current_variant.price | money }}</span>
+      </div>
+    <product-details>
+      <!-- master variant selector -->
+      <select  select_variants product_id="{{ product.id }}" id="product-select" class="master-selector {% if product.variants.size == 1 %}d-none{% endif %}" name="id">
+        {% for variant in product.variants %}
+          <option
+            value="{{ variant.id }}"
+            variant-id="{{ variant.id }}"
+            {% if variant == product.selected_or_first_available_variant %}
+              selected="selected"
+            {% endif %}
+          >
+          {% unless variant.title contains "Default" %}
+            {{ variant.title }}
+          {% endunless %}   
+          </option>
+        {% endfor %}
+      </select>
+      <div class="row cart-button">
+        <div class="col-12 d-flex">
+          <button
+            ajaxcart
+            data-qty-input="1"
+            id="add_cart"
+            addCart
+            product_id="{{ product.id }}"
+            class="btn btn-outline-dark btn-sm flex-grow-1 addCartbtn"
+            type="submit"
+            name="add"
+            variant_id="{{ current_variant.id }}"
+            aria-label="{{ 'products.product.add_to_cart' | t | escape }}"
+            {% unless current_variant.available %}
+              disabled
+            {% endunless %}
+          >
+            <span class="add-text">
+              {%- if current_variant.available -%}
+                {{ 'products.product.add_to_cart' | t }}
+              {%- else -%}
+                {{ 'products.product.sold_out' | t }}
+              {%- endif -%}
+            </span>
+            <span id="spinner" class="spinner"></span>
+          </button>
+        </div>
+      </div>
+       <script id="product-variant-json" type="application/json">
+        {{ product | json }}
+      </script>
+    </product-details>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div id="collection-product-grid">
+        <alternate-collection class="custom-collection container"> 
+          {% paginate collection.products by 6 %}
+          <div  data-nextUrl="{{paginate.next.url}}" data-next="{{paginate.next.url}}" id="custom-all-products" class="row justify-content-center wrapper-scrolling products-on-page">
+            {% for product in collection.products %}
+              {% render 'custom-card-product', product: product, next_page:paginate.next.url, %}
+            {% endfor %}
+          </div>
+          <div class="col-12 text-center">
+            <a class="load-more-btn btn btn-primary  mt-5" currentPage='{{paginate.current_page}}'  totalPages="{{paginate.pages}}" data-next="{{ paginate.next.url }}"></a>
+          </div>  
+          {% endpaginate %}
+        </alternate-collection>    
+    </div>
+    <div>        
+  </div>
+</div>
+</div>  
+</div>
+{% schema %}
+{
+  "name": "custom Collection",
+  "class": "section-content custom-collection-grid-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "product_per_row",
+      "label": "t:sections.template-collection.settings.products_per_row.label",
+      "options": [
+        {
+          "value": "6",
+          "label": "2"
+        },
+        {
+          "value": "4",
+          "label": "3"
+        },
+        {
+          "value": "3",
+          "label": "4"
+        }
+      ],
+      "default": "4"
+    }  
+  ]
+}
+{% endschema %}

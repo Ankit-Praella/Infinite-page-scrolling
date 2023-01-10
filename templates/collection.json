@@ -1,0 +1,13 @@
+{
+  "wrapper": "section",
+  "sections": {
+    "banner": {
+      "type": "template-custom-collection",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "banner"
+  ]
+}

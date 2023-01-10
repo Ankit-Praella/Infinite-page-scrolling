@@ -1,0 +1,17 @@
+<infinite-scroll data-next="{{next_page}}" data-page-size="{{ page_size }}" data-end-text="{{ end_text }}">
+{% if page_size > 1 %}
+<!-- <div class="loadingBox">
+<span id="loading_1" class="loadingScroll">&nbsp;</span>
+<span id="loading_2" class="loadingScroll">&nbsp;</span>
+<span id="loading_3" class="loadingScroll">&nbsp;</span>
+<span id="loading_4" class="loadingScroll">&nbsp;</span>
+<span id="loading_5" class="loadingScroll">&nbsp;</span>
+<span id="loading_6" class="loadingScroll">&nbsp;</span>
+<span id="loading_7" class="loadingScroll">&nbsp;</span>
+<span id="loading_8" class="loadingScroll">&nbsp;</span>
+</div> 
+</infinite-scroll>
+<div class="scrollToTopButton">
+Scroll To Top
+</div>
+{% endif %}
